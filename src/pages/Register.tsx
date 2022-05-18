@@ -63,6 +63,10 @@ const Register = () => {
         setError(["Invalid email or password"]);
       }
     }
+
+    if ("error" in response) {
+      setDisabled(false);
+    }
   };
 
   return (
@@ -81,7 +85,7 @@ const Register = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="h2" component="h1" textAlign="center">
-                Register
+                Bomberman Register💥
               </Typography>
             </Grid>
             <Grid item xs={12}>
@@ -91,15 +95,6 @@ const Register = () => {
                 fullWidth
                 onChange={handleChange}
                 disabled={disabled}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                name="email"
-                label="Email"
-                fullWidth
-                disabled={disabled}
-                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>

@@ -65,6 +65,10 @@ const Login = () => {
         setError("Invalid email or password");
       }
     }
+
+    if ("error" in response) {
+      setDisabled(false);
+    }
   };
 
   return (
@@ -83,7 +87,7 @@ const Login = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="h2" component="h1" textAlign="center">
-                Login
+                Bomberman Login💥
               </Typography>
             </Grid>
             <Grid item xs={12}>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { atom, useAtom } from "jotai";
 import { useCallback } from "react";
+import jwtDecode from "jwt-decode";
 
 const tokenName = "token";
 
@@ -24,27 +25,30 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-const userProfileAtom = atom<User | null>(null);
-const isUserProfileLoading = atom(true);
+const decodedToken: () => User | null = () => {
+  const token = getToken();
+  if (token) return jwtDecode<User>(token);
+  return null;
+};
+
+const userProfileAtom = atom<User | null>(decodedToken());
 
 const useUser = () => {
   const [user, setUser] = useAtom(userProfileAtom);
-  const [isLoading, setIsLoading] = useAtom(isUserProfileLoading);
 
-  const fetchProfile = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await API.get<User>("/auth/profile");
-      setUser(data);
-    } catch (err) {
-      setUser(null);
-    } finally {
-      setIsLoading(false);
+  const restoreProfile = useCallback(() => {
+    const user = decodedToken();
+    if (user) {
+      setUser(user);
     }
-  }, []);
+  }, [setUser]);
 
-  return { user, isLoading, fetchProfile };
+  const removeUser = useCallback(() => {
+    setUser(null);
+    removeToken();
+  }, [setUser]);
+
+  return { user, restoreProfile, removeUser };
 };
 
 export { API, getToken, setToken, removeToken, userProfileAtom, useUser };
-

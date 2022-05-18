@@ -18,7 +18,6 @@ const Home: FC<HomeProps> = () => {
     >
       {user && (
         <>
-          <Typography variant="h1">{user.email}</Typography>
           <Typography variant="h4">{user.username}</Typography>
         </>
       )}

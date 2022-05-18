@@ -51,7 +51,7 @@ const Admin = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography>{us.email}</Typography>
+          <Typography>{us.username}</Typography>
           <Typography>{us.active ? "Active" : "Non-active"}</Typography>
           {!us.active && (
             <Button onClick={() => activateUser(us.id)}>Activate</Button>

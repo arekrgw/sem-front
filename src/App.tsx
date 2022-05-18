@@ -4,19 +4,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import theme from "./theme";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
-import { useEffect } from "react";
-import { useUser } from "./app/api";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Admin from "./pages/Admin";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 
 function App() {
-  const { fetchProfile } = useUser();
-
-  useEffect(() => {
-    fetchProfile();
-  }, []);
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

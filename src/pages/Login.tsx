@@ -12,11 +12,11 @@ import GoogleLogin, {
   GoogleLoginResponseOffline,
 } from "react-google-login";
 import { useNavigate } from "react-router-dom";
-import { API, getToken, setToken, useUser } from "../app/api";
+import { API, setToken, useUser } from "../app/api";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { fetchProfile } = useUser();
+  const { restoreProfile, user } = useUser();
   const [disabled, setDisabled] = useState(false);
   const [creds, setCreds] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (getToken()) {
+    if (user) {
       navigate("/");
     }
   }, []);
@@ -41,7 +41,7 @@ const Login = () => {
       );
       setError("");
       setToken(user.jwt);
-      await fetchProfile();
+      restoreProfile();
       navigate("/", { replace: true });
     } catch (err) {
       setError("Invalid email or password");
@@ -59,7 +59,7 @@ const Login = () => {
         );
         setError("");
         setToken(user.jwt);
-        await fetchProfile();
+        restoreProfile();
         navigate("/", { replace: true });
       } catch (err) {
         setError("Invalid email or password");

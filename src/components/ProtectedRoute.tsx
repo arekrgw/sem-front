@@ -1,17 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { removeToken, useUser } from "../app/api";
-import Loading from "../pages/Loading";
+import { useUser } from "../app/api";
 import Layout from "./Layout";
 
 const ProtectedRoute = () => {
-  const { user, isLoading } = useUser();
-
-  if (!user && isLoading) {
-    return <Loading />;
-  }
+  const { user, removeUser } = useUser();
 
   if (!user) {
-    removeToken();
+    removeUser();
     return <Navigate to="/login" replace />;
   }
 

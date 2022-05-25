@@ -35,7 +35,7 @@ const userProfileAtom = atom<Profile | null>(decodedToken());
 
 const useUser = () => {
   const [user, setUser] = useAtom(userProfileAtom);
-  console.log(user);
+
   const restoreProfile = useCallback(() => {
     const user = decodedToken();
     if (user) {

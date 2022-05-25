@@ -3,6 +3,7 @@ import {
   Button,
   FormHelperText,
   Grid,
+  Paper,
   TextField,
   Typography,
 } from "@mui/material";
@@ -80,7 +81,10 @@ const Login = () => {
       }}
     >
       <form onSubmit={handleLogin}>
-        <Box sx={{ width: "600px", maxWidth: "90vw" }}>
+        <Box
+          component={Paper}
+          sx={{ width: "720px", maxWidth: "90vw", p: "50px" }}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography

@@ -4,14 +4,14 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { removeToken, useUser } from "../app/api";
+import { useUser } from "../app/api";
 
 function Header() {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, removeUser } = useUser();
 
   const logout = () => {
-    removeToken();
+    removeUser();
     navigate("/login");
   };
 

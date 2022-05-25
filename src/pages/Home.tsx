@@ -1,28 +1,37 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { FC } from "react";
-import { getToken, useUser } from "../app/api";
+import { useUser } from "../app/api";
+import invariant from "tiny-invariant";
+import Statistics from "../components/Statistics";
 
 interface HomeProps {}
 
 const Home: FC<HomeProps> = () => {
   const { user } = useUser();
+  invariant(user, "User is not logged");
+
   return (
     <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      maxWidth="600px"
-      width="90vh"
-      m="30px auto"
-      flexDirection="column"
+      width="100%"
+      minHeight="calc(100vh - 65px)"
+      p="30px"
+      sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
     >
-      {user && (
-        <>
-          <Typography variant="h4">{user.username}</Typography>
-        </>
-      )}
-
-      <Typography sx={{ wordBreak: "break-word" }}>{getToken()}</Typography>
+      <Typography component="h1" fontSize="38px">
+        Witaj{" "}
+        <Box display="inline" fontWeight="fontWeightBold">
+          {user.username}
+        </Box>
+        !
+      </Typography>
+      <Grid container spacing={3} sx={{ flex: 1 }}>
+        <Grid item xs={6}>
+          <Box sx={{ minHeight: "30%" }}></Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Statistics />
+        </Grid>
+      </Grid>
     </Box>
   );
 };

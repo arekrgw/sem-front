@@ -1,10 +1,10 @@
 import { createTheme } from "@mui/material";
-import { deepOrange, red } from "@mui/material/colors";
+import { deepOrange, green } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
-    primary: { main: red[500] },
-    secondary: { main: deepOrange[500] },
+    primary: { main: green[800] },
+    secondary: { main: deepOrange[600] },
   },
   components: {
     MuiButton: {

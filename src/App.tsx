@@ -7,11 +7,13 @@ import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Admin from "./pages/Admin";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+import GlobalStyle from "./app/globalStyles";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <GlobalStyle />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ProtectedRoute />}>

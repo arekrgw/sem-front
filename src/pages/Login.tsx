@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { restoreProfile, user } = useUser();
   const [disabled, setDisabled] = useState(false);
-  const [creds, setCreds] = useState({ email: "", password: "" });
+  const [creds, setCreds] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -35,10 +35,7 @@ const Login = () => {
   const handleLogin: FormEventHandler<HTMLFormElement> = async (e) => {
     try {
       e.preventDefault();
-      const { data: user } = await API.post<{ jwt: string }>(
-        "/auth/login",
-        creds
-      );
+      const { data: user } = await API.post<{ jwt: string }>("/login", creds);
       setError("");
       setToken(user.jwt);
       restoreProfile();
@@ -86,14 +83,18 @@ const Login = () => {
         <Box sx={{ width: "600px", maxWidth: "90vw" }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography variant="h2" component="h1" textAlign="center">
+              <Typography
+                sx={{ fontSize: "48px" }}
+                component="h1"
+                textAlign="center"
+              >
                 Bomberman Login💥
               </Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
-                name="email"
-                label="Email"
+                name="username"
+                label="Username"
                 fullWidth
                 disabled={disabled}
                 onChange={handleChange}

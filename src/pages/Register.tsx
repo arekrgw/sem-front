@@ -36,7 +36,7 @@ const Register = () => {
   const handleLogin: FormEventHandler<HTMLFormElement> = async (e) => {
     try {
       e.preventDefault();
-      await API.post<{ jwt: string }>("/auth/register", creds);
+      await API.post<{ jwt: string }>("/register", creds);
       setError([]);
       navigate("/login");
     } catch (err) {
@@ -84,7 +84,11 @@ const Register = () => {
         <Box sx={{ width: "600px", maxWidth: "90vw" }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography variant="h2" component="h1" textAlign="center">
+              <Typography
+                component="h1"
+                sx={{ fontSize: "48px" }}
+                textAlign="center"
+              >
                 Bomberman Register💥
               </Typography>
             </Grid>

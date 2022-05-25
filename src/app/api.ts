@@ -25,13 +25,13 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-const decodedToken: () => User | null = () => {
+const decodedToken: () => Profile | null = () => {
   const token = getToken();
-  if (token) return jwtDecode<User>(token);
+  if (token) return jwtDecode<Profile>(token);
   return null;
 };
 
-const userProfileAtom = atom<User | null>(decodedToken());
+const userProfileAtom = atom<Profile | null>(decodedToken());
 
 const useUser = () => {
   const [user, setUser] = useAtom(userProfileAtom);

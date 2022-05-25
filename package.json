@@ -39,8 +39,7 @@
       "react-app/jest"
     ],
     "rules": {
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "off"
+      "react-hooks/rules-of-hooks": "error"
     }
   },
   "browserslist": {

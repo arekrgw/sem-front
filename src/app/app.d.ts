@@ -1,15 +1,17 @@
 export {};
 
 declare global {
+  type Role = "ADMIN" | "USER";
+
   type Profile = {
     id: string;
-    role: "ADMIN" | "USER";
+    role: Role;
     username: string;
   };
 
   type User = {
     id: string;
-    role: "ADMIN" | "USER";
+    role: Role;
     username: string;
     active: boolean;
   };

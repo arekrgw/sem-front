@@ -3,6 +3,7 @@ import { FC } from "react";
 import { useUser } from "../app/api";
 import invariant from "tiny-invariant";
 import Statistics from "../components/Statistics";
+import LobbyButton from "../components/LobbyButton";
 
 interface HomeProps {}
 
@@ -26,7 +27,7 @@ const Home: FC<HomeProps> = () => {
       </Typography>
       <Grid container spacing={3} sx={{ flex: 1 }}>
         <Grid item xs={6}>
-          <Box sx={{ minHeight: "30%" }}></Box>
+          <LobbyButton />
         </Grid>
         <Grid item xs={6}>
           <Statistics />

@@ -24,7 +24,12 @@ function Header() {
           </Typography>
           {user?.role === "admin" && (
             <Button component={Link} color="inherit" to="/admin">
-              Admin
+              <Typography sx={{ color: "orange" }}>Użytkownicy</Typography>
+            </Button>
+          )}
+          {user?.role === "admin" && (
+            <Button component={Link} color="inherit" to="/admin/statistics">
+              <Typography sx={{ color: "orange" }}>Statystyki</Typography>
             </Button>
           )}
           <Button color="inherit" onClick={logout}>

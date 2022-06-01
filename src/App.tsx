@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Admin from "./pages/Admin";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import GlobalStyle from "./app/globalStyles";
+import Statistics from "./pages/Statistics";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="" element={<Home />} />
             <Route path="admin" element={<ProtectedAdminRoute />}>
               <Route path="" element={<Admin />} />
+              <Route path="statistics" element={<Statistics />} />
             </Route>
           </Route>
           <Route path="/login" element={<Login />} />

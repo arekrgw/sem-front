@@ -1,9 +1,12 @@
 import { alpha, Box, Button } from "@mui/material";
+import { useGame } from "../app/GameContext";
 import Image from "./Image";
 
 interface LobbyButtonProps {}
 
 const LobbyButton = (props: LobbyButtonProps) => {
+  const game = useGame();
+
   return (
     <Box
       sx={{
@@ -34,8 +37,15 @@ const LobbyButton = (props: LobbyButtonProps) => {
         <Image src="/frontPink.png" alt="pink-player" />
       </Box>
 
-      <Button variant="contained" color="secondary" size="large">
-        Jestem gotowy!
+      <Button
+        variant="contained"
+        color={game.lobbyStatus ? "clickedWaiting" : "secondary"}
+        size="large"
+        onClick={() => {
+          game.lobbyStatus ? game.io.emit("notReady") : game.io.emit("ready");
+        }}
+      >
+        {game.lobbyStatus ? "Czekam na resztę graczy" : "Jestem gotowy!"}
       </Button>
     </Box>
   );

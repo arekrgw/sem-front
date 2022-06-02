@@ -9,6 +9,7 @@ import Admin from "./pages/Admin";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import GlobalStyle from "./app/globalStyles";
 import Statistics from "./pages/Statistics";
+import { Game } from "./pages/Game";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ProtectedRoute />}>
             <Route path="" element={<Home />} />
+            <Route path="game" element={<Game />} />
             <Route path="admin" element={<ProtectedAdminRoute />}>
               <Route path="" element={<Admin />} />
               <Route path="statistics" element={<Statistics />} />

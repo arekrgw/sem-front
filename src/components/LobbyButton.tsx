@@ -6,7 +6,6 @@ interface LobbyButtonProps {}
 
 const LobbyButton = (props: LobbyButtonProps) => {
   const game = useGame();
-  console.log(game.map);
   return (
     <Box
       sx={{

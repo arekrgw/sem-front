@@ -6,7 +6,7 @@ interface LobbyButtonProps {}
 
 const LobbyButton = (props: LobbyButtonProps) => {
   const game = useGame();
-
+  console.log(game.map);
   return (
     <Box
       sx={{
@@ -41,6 +41,7 @@ const LobbyButton = (props: LobbyButtonProps) => {
         variant="contained"
         color={game.lobbyStatus ? "clickedWaiting" : "secondary"}
         size="large"
+        disabled={!game.io.connected}
         onClick={() => {
           game.lobbyStatus ? game.io.emit("notReady") : game.io.emit("ready");
         }}

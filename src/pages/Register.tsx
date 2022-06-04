@@ -52,10 +52,9 @@ const Register = () => {
   ) => {
     if ("accessToken" in response) {
       try {
-        const { data: user } = await API.post<{ jwt: string }>(
-          "/auth/login/google",
-          { token: response.accessToken }
-        );
+        const { data: user } = await API.post<{ jwt: string }>("/oauth", {
+          token: response.accessToken,
+        });
         setError([]);
         setToken(user.jwt);
         restoreProfile();

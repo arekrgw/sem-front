@@ -36,9 +36,10 @@ export const GameProvider: FC<{ children: React.ReactNode }> = ({
 }) => {
   const navigate = useNavigate();
   const [io] = useState(() => {
-    return sIo(process.env.REACT_APP_API_URL!, {
+    return sIo(process.env.REACT_APP_SOCKETS_SERVER!, {
       transports: ["websocket"],
       auth: { token: getToken() },
+      path: process.env.REACT_APP_SOCKETS_PATH,
     });
   });
   const [map, setMap] = useState<Map | null>(null);

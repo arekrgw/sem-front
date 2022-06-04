@@ -36,7 +36,7 @@ export const GameProvider: FC<{ children: React.ReactNode }> = ({
 }) => {
   const navigate = useNavigate();
   const [io] = useState(() => {
-    return sIo("http://localhost:3001", {
+    return sIo(process.env.REACT_APP_API_URL!, {
       transports: ["websocket"],
       auth: { token: getToken() },
     });

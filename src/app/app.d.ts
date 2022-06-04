@@ -11,10 +11,18 @@ declare global {
     iat: number;
   };
 
+  type Stats = {
+    numberOfKills: number;
+    numberOfSuicides: number;
+    numberOfWins: number;
+    numberOfGames: number;
+    numberOfPowerups: number;
+  };
+
   type User = {
     id: string;
     role: Role;
     username: string;
     active: boolean;
-  };
+  } & Stats;
 }

@@ -15,8 +15,8 @@ export type MapElement = {
   type: MapBlockType;
   player: string | null;
   bomb: boolean;
-  powerup: boolean;
-  explosion: boolean;
+  powerup: number;
+  explosion: string[];
 };
 
 export type Map = Array<Array<MapElement>>;
@@ -26,6 +26,7 @@ interface IGameContext {
   lobbyStatus: boolean;
   connected: boolean;
   map: Map | null;
+  killed: boolean;
 }
 
 const GameContext = createContext<IGameContext | null>(null);
@@ -43,6 +44,7 @@ export const GameProvider: FC<{ children: React.ReactNode }> = ({
   const [map, setMap] = useState<Map | null>(null);
   const [lobbyStatus, setLobbyStatus] = useState(false);
   const [connected, setConnected] = useState(false);
+  const [killed, setKilled] = useState(false);
 
   const gameDetailsReceived = (newMap: Map) => {
     if (map === null) {
@@ -60,11 +62,14 @@ export const GameProvider: FC<{ children: React.ReactNode }> = ({
       io.emit("changePos", { direction: "left" });
     } else if (e.key === "ArrowRight") {
       io.emit("changePos", { direction: "right" });
+    } else if (e.key === " ") {
+      io.emit("placeBomb");
     }
   };
 
   useEffect(() => {
     document.addEventListener("keyup", handleKey);
+
     return () => {
       document.removeEventListener("keyup", handleKey);
     };
@@ -73,20 +78,31 @@ export const GameProvider: FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     io.on("connect", () => {
       setConnected(true);
-      console.log("connected");
     });
     io.on("lobbyStatusChange", (status) => {
       setLobbyStatus(status);
     });
 
     io.on("disconnect", () => {
+      navigate("/");
       setConnected(false);
       setLobbyStatus(false);
+      setMap(null);
+      setKilled(false);
     });
 
     io.on("gameDetails", ({ map: newMap }: { map: Map }) => {
-      console.log("gameDetails");
       gameDetailsReceived(newMap);
+    });
+
+    io.on("killed", () => {
+      setKilled(true);
+    });
+
+    io.on("gameEnded", () => {
+      navigate("/");
+      setKilled(false);
+      setMap(null);
     });
 
     return () => {
@@ -95,7 +111,7 @@ export const GameProvider: FC<{ children: React.ReactNode }> = ({
   }, []);
 
   return (
-    <GameContext.Provider value={{ io, lobbyStatus, connected, map }}>
+    <GameContext.Provider value={{ io, lobbyStatus, connected, map, killed }}>
       {children}
     </GameContext.Provider>
   );

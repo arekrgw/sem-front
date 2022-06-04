@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { FC } from "react";
+import { FC } from "react";
 import { Map } from "../../app/GameContext";
 import HorizontalWall from "./HorizontalWall";
 import MapBox from "./MapBox";

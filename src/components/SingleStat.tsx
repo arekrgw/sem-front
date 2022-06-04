@@ -21,7 +21,10 @@ const SingleStat: FC<SingleStatProps> = ({
       </Typography>
       <Typography fontSize="18px">
         {currentPlayerNumber}/{allNumber} (
-        {((currentPlayerNumber / allNumber) * 100).toFixed(1)}%)
+        {allNumber === 0
+          ? 0
+          : ((currentPlayerNumber / allNumber) * 100).toFixed(1)}
+        %)
       </Typography>
       <Typography fontSize="12px">(wartość/liczba rozgrywek)</Typography>
     </Box>

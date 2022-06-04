@@ -1,7 +1,7 @@
-import { Button, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import { API } from "../app/api";
+import User from "../components/User";
 
 const Admin = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -27,6 +27,16 @@ const Admin = () => {
     }
   };
 
+  const deleteUser = async (id: string) => {
+    try {
+      await API.delete(`/users/${id}`);
+      const res = await API.get<User[]>("/users");
+      setUsers(res.data);
+    } catch (err) {
+      console.debug("Failed deleteUser");
+    }
+  };
+
   return (
     <Box
       display="flex"
@@ -39,24 +49,12 @@ const Admin = () => {
       gap="10px"
     >
       {users.map((us) => (
-        <Box
-          display="flex"
+        <User
+          us={us}
+          activateUser={activateUser}
           key={us.id}
-          gap="20px"
-          height="50px"
-          borderRadius="4px"
-          px="20px"
-          sx={{ backgroundColor: "#eee" }}
-          width="100%"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography>{us.username}</Typography>
-          <Typography>{us.active ? "Active" : "Non-active"}</Typography>
-          {!us.active && (
-            <Button onClick={() => activateUser(us.id)}>Activate</Button>
-          )}
-        </Box>
+          deleteUser={deleteUser}
+        />
       ))}
     </Box>
   );

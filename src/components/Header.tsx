@@ -19,7 +19,17 @@ function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            component={Link}
+            to="/"
+            variant="h6"
+            sx={{
+              flexGrow: 1,
+              cursor: "pointer",
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
             Bomberman
           </Typography>
           {user?.role === "admin" && (

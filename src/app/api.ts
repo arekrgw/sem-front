@@ -27,8 +27,12 @@ API.interceptors.request.use((config) => {
 
 const decodedToken: () => Profile | null = () => {
   const token = getToken();
-  if (token) return jwtDecode<Profile>(token);
-  return null;
+  try {
+    if (token) return jwtDecode<Profile>(token);
+    return null;
+  } catch (err) {
+    return null;
+  }
 };
 
 const userProfileAtom = atom<Profile | null>(decodedToken());

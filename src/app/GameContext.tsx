@@ -39,6 +39,8 @@ export const GameProvider: FC<{ children: React.ReactNode }> = ({
     return sIo(process.env.REACT_APP_API_URL!, {
       transports: ["websocket"],
       auth: { token: getToken() },
+      path:
+        process.env.NODE_ENV !== "production" ? "/socket.io" : "/api/socket.io",
     });
   });
   const [map, setMap] = useState<Map | null>(null);

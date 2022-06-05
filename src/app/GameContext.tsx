@@ -27,6 +27,7 @@ interface IGameContext {
   connected: boolean;
   map: Map | null;
   killed: boolean;
+  playersList: Player[];
 }
 
 const GameContext = createContext<IGameContext | null>(null);
@@ -46,6 +47,7 @@ export const GameProvider: FC<{ children: React.ReactNode }> = ({
   const [lobbyStatus, setLobbyStatus] = useState(false);
   const [connected, setConnected] = useState(false);
   const [killed, setKilled] = useState(false);
+  const [playersList, setPlayerList] = useState<Player[]>([]);
 
   const gameDetailsReceived = (newMap: Map) => {
     if (map === null) {
@@ -104,6 +106,11 @@ export const GameProvider: FC<{ children: React.ReactNode }> = ({
       navigate("/");
       setKilled(false);
       setMap(null);
+      setPlayerList([]);
+    });
+
+    io.on("playersInGame", (players) => {
+      setPlayerList(players);
     });
 
     return () => {
@@ -112,7 +119,9 @@ export const GameProvider: FC<{ children: React.ReactNode }> = ({
   }, []);
 
   return (
-    <GameContext.Provider value={{ io, lobbyStatus, connected, map, killed }}>
+    <GameContext.Provider
+      value={{ io, lobbyStatus, connected, map, killed, playersList }}
+    >
       {children}
     </GameContext.Provider>
   );

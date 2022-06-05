@@ -25,4 +25,9 @@ declare global {
     username: string;
     active: boolean;
   } & Stats;
+
+  type Player = {
+    username: string;
+    color: string;
+  };
 }

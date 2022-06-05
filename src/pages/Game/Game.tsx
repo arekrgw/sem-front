@@ -1,7 +1,8 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGame } from "../../app/GameContext";
+import Image from "../../components/Image";
 import MapRenderer from "./MapRenderer";
 
 interface GameProps {}
@@ -17,7 +18,15 @@ const Game: FC<GameProps> = () => {
   }, [game.connected]);
 
   return (
-    <Box height="100vh" width="100vw" display="flex" flexDirection="column">
+    <Box
+      height="100vh"
+      width="100vw"
+      display="flex"
+      flexDirection="row"
+      justifyContent="center"
+      alignItems="center"
+      gap="30px"
+    >
       {!game.map && <Box>Loading...</Box>}
       {game.map && (
         <Box
@@ -32,6 +41,20 @@ const Game: FC<GameProps> = () => {
           <MapRenderer map={game.map} />
         </Box>
       )}
+      <Box>
+        <Typography variant="h5" fontWeight="fontWeightBold" mb="20px">
+          Gracze w grze:
+        </Typography>
+        {game.playersList.map((player, i) => (
+          <Typography
+            key={`${player.username}-${player.color}`}
+            sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+          >
+            <Image src={`front${player.color}.png`} height="20px" />
+            {player.username}
+          </Typography>
+        ))}
+      </Box>
     </Box>
   );
 };
